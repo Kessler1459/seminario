@@ -1,33 +1,16 @@
-import { useEffect, useState } from "react";
-import { useEthersContext } from "../../ethers-context";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-const Guard = ({ children }: { children: JSX.Element }) => {
+const Guard = ({ children,isOwner }: { children: JSX.Element,isOwner:boolean|null }) => {
 	const router = useRouter();
-	const { provider, contract } = useEthersContext();
-	const [isOwner, setOwner] = useState(false);
 
 	useEffect(() => {
-		if (provider) {
-			checkOwner().then((owner) => {
-				if (!owner) {
-					router.push("/");
-				} else {
-					setOwner(true);
-				}
-			});
+		if (isOwner==false) {
+			router.push("/");
 		}
 	});
 
-	const checkOwner = async () => {
-		if (provider) {
-			const [actualAccount] = await provider.listAccounts();
-			const [ownerAccount] = await contract?.functions.owner();
-			return actualAccount !== undefined && actualAccount.toLowerCase() == ownerAccount.toLowerCase();
-		}
-	};
-
-	return !isOwner ? <div>LOAD</div> : children;
+	return isOwner==null ? <div>LOAD</div> : children;
 };
 
 export default Guard;

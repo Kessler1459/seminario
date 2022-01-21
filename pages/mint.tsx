@@ -1,10 +1,10 @@
 import { NextPage } from "next";
 import Guard from "../components/guard/guard";
 
-const Mint: NextPage = () => {
+const Mint: NextPage<{owner:boolean|null}> = ({owner}) => {
 	return (
-		<Guard>
-            <div>lalalla</div>
+		<Guard isOwner={owner}>
+            <div>MINT</div>
         </Guard>		
 	);
 };
