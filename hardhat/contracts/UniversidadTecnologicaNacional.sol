@@ -8,7 +8,6 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
-
     Counters.Counter private _tokenIdCounter;
 
     struct ScoreEntry{
@@ -16,7 +15,10 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
         uint8 score;
     }
 
+    //Array with all the existing accounts with at least one token  without repeating
     address[] public addresses;
+
+    // Mapping from token ID to score
     mapping(uint256 => uint8) public scores;
 
     constructor() ERC721("Universidad Tecnologica Nacional", "UTN") {}
@@ -25,6 +27,9 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
         return "kjjjj";
     }
 
+    /**
+     * @dev Returns an array with all the ScoreEntry from an address
+     */
     function getAllTokens(address _address) public view returns(ScoreEntry[] memory){
         uint256 balance=balanceOf(_address);
         ScoreEntry[] memory entries=new ScoreEntry[](balance) ;
@@ -39,7 +44,7 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
         return addresses;
     }
 
-    function safeMint(address to, uint8 score) public onlyOwner {
+    function safeMint(address to, uint8 score) public scoreRange(score) onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         if(balanceOf(to)==0){
@@ -49,7 +54,13 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
         _safeMint(to, tokenId);
     }
         
+    modifier scoreRange(uint8 score){
+        require((score >= 1) && (score<=10),"score must be between 1 and 10");
+        _;
+    }
+
     function _beforeTokenTransfer(address from, address to, uint256 tokenId)internal override(ERC721, ERC721Enumerable){
+        require(from == address(0) || to == address(0), "NonTransferrableERC721Token: non transferrable");
         super._beforeTokenTransfer(from, to, tokenId);
     }
 
