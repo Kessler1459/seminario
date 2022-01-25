@@ -25,7 +25,7 @@ describe("UTN Token", function () {
         })
 
         it("Should mint new token to new account", async () => {
-            const tx = UTN.safeMint(address, 10)
+            const tx = UTN.safeMint(address, 10,"cid")
             
             expect( await UTN.totalSupply()).equal(1);
             expect(await UTN.scores(0)).equal(10);
@@ -34,8 +34,8 @@ describe("UTN Token", function () {
         });
 
         it("Should mint new token to existing account", async () => {
-            const tx = UTN.safeMint(address, 10)
-            const tx2 = UTN.safeMint(address, 4)
+            const tx = UTN.safeMint(address, 10,"cid")
+            const tx2 = UTN.safeMint(address, 4,"cid")
 
             expect( await UTN.totalSupply()).equal(2);
             expect(await UTN.scores(0)).equal(10);
@@ -44,7 +44,7 @@ describe("UTN Token", function () {
         });
 
         it("Should revert the minting, score out of range", async () => {
-            const tx = UTN.safeMint(address, 100);
+            const tx = UTN.safeMint(address, 100,"cid");
             expect(tx).to.be.reverted
         });
 
@@ -54,8 +54,8 @@ describe("UTN Token", function () {
     describe("get scores", () => {
         it("Should return an array of ScoreEntry of an address", async () => {
             const address = await owner.getAddress();
-            const tx = UTN.safeMint(address, 10);
-            const tx2 = UTN.safeMint(address, 5);
+            const tx = UTN.safeMint(address, 10,"cid");
+            const tx2 = UTN.safeMint(address, 5,"cid");
             const entryArray=await UTN.getAllTokens(address)
             expect(entryArray.length).equal(2);
             expect(entryArray[0]["tokenId"]).equal(BigNumber.from(0));

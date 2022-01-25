@@ -3,10 +3,11 @@ pragma solidity ^0.8.2;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
+contract UniversidadTecnologicaNacional is ERC721,ERC721URIStorage, ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
@@ -24,7 +25,16 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
     constructor() ERC721("Universidad Tecnologica Nacional", "UTN") {}
 
     function _baseURI() internal pure override returns (string memory) {
-        return "kjjjj";
+        return "ipfs://";
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
     }
 
     /**
@@ -44,7 +54,7 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
         return addresses;
     }
 
-    function safeMint(address to, uint8 score) public scoreRange(score) onlyOwner {
+    function safeMint(address to, uint8 score, string memory uri) public scoreRange(score) onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         if(balanceOf(to)==0){
@@ -52,6 +62,7 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
         }
         scores[tokenId]=score;
         _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
     }
         
     modifier scoreRange(uint8 score){
@@ -66,5 +77,9 @@ contract UniversidadTecnologicaNacional is ERC721, ERC721Enumerable, Ownable {
 
     function supportsInterface(bytes4 interfaceId)public view override(ERC721, ERC721Enumerable) returns (bool){
         return super.supportsInterface(interfaceId);
+    }
+
+    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+        super._burn(tokenId);
     }
 }
