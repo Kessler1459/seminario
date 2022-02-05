@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import { ethers } from "ethers";
 import type { AppProps } from "next/app";
 import { EthersContext } from "../ethers-context";
@@ -68,8 +68,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<EthersContext.Provider value={{ contract: contract, provider: provider }}>
 			<Layout address={address} owner={isOwner} openMetamaskModal={onClickMetamask}>
-				<>
-					<Modal isShowing={modalIsOpen} hide={closeModal} title={<h2>Metamask not installed</h2>}>
+				<div className='container'>
+                    <Modal isShowing={modalIsOpen} hide={closeModal} title={<h2>Metamask not installed</h2>}>
 						<div>
 							<div>
 								<a href="https://metamask.io/download/" target="_blank">
@@ -80,7 +80,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 						</div>
 					</Modal>
 					<Component {...Object.assign(pageProps, { owner: isOwner })} />
-				</>
+                </div>
 			</Layout>
 		</EthersContext.Provider>
 	);
