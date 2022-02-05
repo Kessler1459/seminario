@@ -14,7 +14,7 @@ const MintForm = () => {
 		address: Yup.string()
 			.trim()
 			.required("Address is required")
-			.test((add) => isAddress(add ?? "")),
+			.test("address","Address is invalid",(add) => isAddress(add ?? "")),
 		score: Yup.number().required("Score is required").min(1, "Minimum score is 1").max(10, "Maximum score is 1"),
 		degree: Yup.string()
 			.trim()
@@ -96,83 +96,83 @@ const MintForm = () => {
 				) : null}
 			</section>
 
-			<div className={styles.grid}>
-				<div className={styles.col}>
-					<section className={styles.sectionInput}>
-						<input
-							className={styles.form__input}
-							id="firstName"
-							name="firstName"
-							type="text"
-							autoComplete="given-name"
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							value={formik.values.firstName}
-							placeholder="First name"
-							required
-						/>
-						{formik.touched.firstName && formik.errors.firstName ? (
-							<div className={styles.error}>{formik.errors.firstName}</div>
-						) : null}
-					</section>
-					<section className={styles.sectionInput}>
-						<input
-							className={styles.form__input}
-							placeholder="Last name"
-							id="lastName"
-							name="lastName"
-							type="text"
-							autoComplete="family-name"
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							value={formik.values.lastName}
-							required
-						/>
-
-						{formik.touched.lastName && formik.errors.lastName ? (
-							<div className={styles.error}>{formik.errors.lastName}</div>
-						) : null}
-					</section>
+			<div className={styles.row}>
+				<div>
+					<input
+						className={styles.form__input}
+						id="firstName"
+						name="firstName"
+						type="text"
+						autoComplete="given-name"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.firstName}
+						placeholder="First name"
+						required
+					/>
+					{formik.touched.firstName && formik.errors.firstName ? (
+						<div className={styles.error}>{formik.errors.firstName}</div>
+					) : null}
 				</div>
-				<div className={styles.col}>
-					<section className={styles.sectionInput}>
-						<input
-							className={styles.form__input}
-							placeholder="Degree"
-							id="degree"
-							name="degree"
-							type="text"
-							autoComplete="organization-title"
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							value={formik.values.degree}
-							required
-						/>
 
-						{formik.touched.degree && formik.errors.degree ? (
-							<div className={styles.error}>{formik.errors.degree}</div>
-						) : null}
-					</section>
-					<section className={styles.sectionInput}>
-						<input
-							className={styles.form__input}
-							placeholder="Course"
-							id="course"
-							name="course"
-							type="text"
-							autoComplete="off"
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							value={formik.values.course}
-							required
-						/>
+				<div>
+					<input
+						className={styles.form__input}
+						placeholder="Last name"
+						id="lastName"
+						name="lastName"
+						type="text"
+						autoComplete="family-name"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.lastName}
+						required
+					/>
 
-						{formik.touched.course && formik.errors.course ? (
-							<div className={styles.error}>{formik.errors.course}</div>
-						) : null}
-					</section>
+					{formik.touched.lastName && formik.errors.lastName ? (
+						<div className={styles.error}>{formik.errors.lastName}</div>
+					) : null}
 				</div>
 			</div>
+			<div className={styles.row}>
+				<div>
+					<input
+						className={styles.form__input}
+						placeholder="Degree"
+						id="degree"
+						name="degree"
+						type="text"
+						autoComplete="organization-title"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.degree}
+						required
+					/>
+
+					{formik.touched.degree && formik.errors.degree ? (
+						<div className={styles.error}>{formik.errors.degree}</div>
+					) : null}
+				</div>
+				<div>
+					<input
+						className={styles.form__input}
+						placeholder="Course"
+						id="course"
+						name="course"
+						type="text"
+						autoComplete="off"
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						value={formik.values.course}
+						required
+					/>
+
+					{formik.touched.course && formik.errors.course ? (
+						<div className={styles.error}>{formik.errors.course}</div>
+					) : null}
+				</div>
+			</div>
+
 			<section className={styles.sectionInput}>
 				<select
 					className={styles.form__input}
@@ -195,8 +195,8 @@ const MintForm = () => {
 				{formik.touched.score && formik.errors.score ? <div className={styles.error}>{formik.errors.score}</div> : null}
 			</section>
 
-			<button disabled={!formik.isValid} type="submit">
-				Submit
+			<button className={styles.btn} disabled={!formik.isValid} type="submit">
+				Mint
 			</button>
 		</form>
 	);
