@@ -6,15 +6,17 @@ import useUsers from "../../hooks/useUsers";
 import User from "../../models/user";
 import { BigNumber } from "ethers";
 import styles from "./Mint-form.module.scss";
+import { useEthersContext } from "../../ethers-context";
 
 const MintForm = () => {
-	const { loading, getFullUser, mintTokenToAddress } = useUsers();
+	const { contract } = useEthersContext();
+	const { loading, getFullUser, mintTokenToAddress } = useUsers(contract);
 	const [user, setUser] = useState<User | null>(null);
 	const validationSchema = Yup.object().shape({
 		address: Yup.string()
 			.trim()
 			.required("Address is required")
-			.test("address","Address is invalid",(add) => isAddress(add ?? "")),
+			.test("address", "Address is invalid", (add) => isAddress(add ?? "")),
 		score: Yup.number().required("Score is required").min(1, "Minimum score is 1").max(10, "Maximum score is 1"),
 		degree: Yup.string()
 			.trim()

@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		return () => {
 			eth.removeAllListeners("accountsChanged");
 		};
-	}, [address, isOwner]);
+	}, [address]);
 
 	const onClickMetamask = () => {
 		if (!provider || !provider.provider.isMetaMask) {

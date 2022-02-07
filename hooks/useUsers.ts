@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BigNumberish } from "ethers";
+import { BigNumberish, Contract } from "ethers";
 import { NFTStorage } from "nft.storage";
 import { useEthersContext } from "../ethers-context";
 import { UniversidadTecnologicaNacional } from "../hardhat/typechain";
@@ -7,8 +7,10 @@ import Degree from "../models/degree";
 import User from "../models/user";
 const apiKey = process.env.NEXT_PUBLIC_NFTSTORAGE_KEY ?? "";
 
-const useUsers = () => {
-    const { contract } = useEthersContext();
+export type Entry = { address: string, tokens: number, totalScore: number }
+
+
+export const useUsers = (contract: Contract | null) => {
     const [loading, setLoading] = useState(false);
 
     const mintTokenToAddress = async (firstName: string, lastName: string, degree: string, address: string, course: string, score: BigNumberish) => {
@@ -67,7 +69,24 @@ const useUsers = () => {
         return us;
     }
 
-    return { loading, getFullUser, mintTokenToAddress }
+    const getAllEntries = async (): Promise<Entry[]> => {
+        let rank: Entry[] = [];
+        if (contract) {
+            const addresses = await contract?.getAllAddresses();
+            rank=await Promise.all(addresses.map(async (address: string) => {
+                const entryList = await contract?.getAllTokens(address);
+                let sum = 0;
+                let i = 0;
+                for (i = 0; i < entryList.length; i++) {
+                    sum += entryList[i].score;
+                }
+                return ({ address: address, tokens: i, totalScore: sum });
+            }));
+        }
+        return rank;
+    };
+
+    return { loading, getFullUser, mintTokenToAddress, getAllEntries }
 }
 
 export default useUsers;
