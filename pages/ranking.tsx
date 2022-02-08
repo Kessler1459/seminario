@@ -21,30 +21,6 @@ const Home: NextPage = () => {
 	};
 
 	return <Table leaderboard={leaderboard} />
-
-	/*
-	return (
-		<table>
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>Address</th>
-					<th>Tokens</th>
-					<th>Total score</th>
-				</tr>
-			</thead>
-			<tbody>
-				{leaderboard.map((scoreEntry, i) => (
-					<tr key={i}>
-						<td>{i + 1}</td>
-						<td><a href={"/profile/"+scoreEntry.address}>{scoreEntry.address}</a></td>
-						<td>{scoreEntry.tokens}</td>
-						<td>{scoreEntry.totalScore}</td>
-					</tr>
-				))}
-			</tbody>
-		</table>
-	);*/
 };
 
 export default Home;
