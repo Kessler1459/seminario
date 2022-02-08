@@ -70,7 +70,7 @@ const MintForm = () => {
 	};
 
 	const courseExists = (course: string): boolean =>
-		user?.degrees.find((deg) => deg.title == formik.values.degree)?.courses.find((cou) => cou == course) !== undefined;
+		user?.degrees.find((deg) => deg.title == formik.values.degree)?.courses.find((cou) => cou.name == course) !== undefined;
 
 	return (
 		<form className={styles.columnsForm} onSubmit={formik.handleSubmit}>

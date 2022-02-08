@@ -5,6 +5,7 @@ import { useEthersContext } from "../ethers-context";
 import { UniversidadTecnologicaNacional } from "../hardhat/typechain";
 import Degree from "../models/degree";
 import User from "../models/user";
+import Course from '../models/course';
 const apiKey = process.env.NEXT_PUBLIC_NFTSTORAGE_KEY ?? "";
 
 export type Entry = { address: string, tokens: number, totalScore: number }
@@ -60,7 +61,7 @@ export const useUsers = (contract: Contract | null) => {
                         us.firstName = tokenJson.name;
                         us.lastName = tokenJson.lastName;
                     }
-                    degree.courses.push(tokenJson.course)
+                    degree.courses.push(new Course(tokenJson.course,entry.score))
                 })
             );
             us.degrees = degrees;
