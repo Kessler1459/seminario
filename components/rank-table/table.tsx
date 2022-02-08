@@ -44,15 +44,15 @@ const Table = ({ leaderboard }: { leaderboard: Entry[] }) => {
 	};
 
 	return (
-		<Paper sx={{ width: "100%", overflow: "hidden" }}>
-			<input type="text" value={filter} onChange={onChangeFilter} />
-			<TableContainer sx={{ maxHeight: 440 }}>
+		<Paper className={styles.paper} sx={{ width: "100%", overflow: "hidden" }}>
+			<input className={styles.searchInput} type="text" value={filter} onChange={onChangeFilter} placeholder='Search'/>
+			<TableContainer className={styles.table} sx={{ maxHeight: 440 }}>
 				<MTable stickyHeader aria-label="sticky table">
 					<TableHead>
 						<TableRow>
-							<TableCell key={-1}>#</TableCell>
+							<TableCell className={styles.th} key={-1}>#</TableCell>
 							{columns.map((column, colKey) => (
-								<TableCell key={colKey}>
+								<TableCell className={styles.th} key={colKey}>
 									<strong>{column.headerName}</strong>
 								</TableCell>
 							))}
@@ -62,16 +62,17 @@ const Table = ({ leaderboard }: { leaderboard: Entry[] }) => {
 						{showedList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, rowKey) => {
 							return (
 								<TableRow
+                                    className={styles.row}
 									onClick={() => router.push("/profile/" + row.address)}
 									hover
 									role="checkbox"
 									tabIndex={-1}
 									key={rowKey}
 								>
-									<TableCell key={-1}>{rowKey + 1}</TableCell>
+									<TableCell className={styles.cell} key={-1}>{rowKey + 1}</TableCell>
 									{columns.map((column, k) => {
 										const value = (row as any)[column.field];
-										return <TableCell key={k}>{value}</TableCell>;
+										return <TableCell className={styles.cell} key={k}>{value}</TableCell>;
 									})}
 								</TableRow>
 							);
@@ -80,6 +81,7 @@ const Table = ({ leaderboard }: { leaderboard: Entry[] }) => {
 				</MTable>
 			</TableContainer>
 			<TablePagination
+                className={styles.pagination}
 				rowsPerPageOptions={[10, 25, 100]}
 				component="div"
 				count={showedList.length}
