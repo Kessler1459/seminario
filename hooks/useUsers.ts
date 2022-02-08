@@ -71,6 +71,7 @@ export const useUsers = (contract: Contract | null) => {
     }
 
     const getAllEntries = async (): Promise<Entry[]> => {
+        setLoading(true);
         let rank: Entry[] = [];
         if (contract) {
             const addresses = await contract?.getAllAddresses();
@@ -84,6 +85,7 @@ export const useUsers = (contract: Contract | null) => {
                 return ({ address: address, tokens: i, totalScore: sum });
             }));
         }
+        setLoading(false);
         return rank;
     };
 
