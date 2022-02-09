@@ -61,7 +61,7 @@ export const useUsers = (contract: Contract | null) => {
                         us.firstName = tokenJson.name;
                         us.lastName = tokenJson.lastName;
                     }
-                    degree.courses.push(new Course(entry.tokenId,tokenJson.course, entry.score, tokenJson.date))
+                    degree.courses.push(new Course(entry.tokenId,tokenJson.course, entry.score, new Date(tokenJson.date)))
                 })
             );
             us.degrees = degrees;
