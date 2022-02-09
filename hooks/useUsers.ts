@@ -61,7 +61,7 @@ export const useUsers = (contract: Contract | null) => {
                         us.firstName = tokenJson.name;
                         us.lastName = tokenJson.lastName;
                     }
-                    degree.courses.push(new Course(tokenJson.course,entry.score))
+                    degree.courses.push(new Course(entry.tokenId,tokenJson.course, entry.score, tokenJson.date))
                 })
             );
             us.degrees = degrees;
@@ -75,7 +75,7 @@ export const useUsers = (contract: Contract | null) => {
         let rank: Entry[] = [];
         if (contract) {
             const addresses = await contract?.getAllAddresses();
-            rank=await Promise.all(addresses.map(async (address: string) => {
+            rank = await Promise.all(addresses.map(async (address: string) => {
                 const entryList = await contract?.getAllTokens(address);
                 let sum = 0;
                 let i = 0;
