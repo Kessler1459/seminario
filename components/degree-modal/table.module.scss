@@ -1,0 +1,23 @@
+@import "/styles/colors.scss";
+
+.paper{
+    text-align: center;
+    border: 2px solid $light-grey;
+    background-color: $grey;
+    color: white;
+    max-height: 70%;
+}
+
+.table{
+    text-align-last: center;
+}
+
+.th{
+    background-color: $grey;
+    color: white;
+}
+
+.cell{
+    color: $light-grey;
+}
+
