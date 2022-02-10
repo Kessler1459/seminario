@@ -2,7 +2,7 @@
 
 .paper{
     text-align: center;
-    border: 2px solid $light-grey;
+    box-shadow: none;
     background-color: $grey;
     color: white;
     max-height: 70%;
@@ -18,6 +18,6 @@
 }
 
 .cell{
-    color: $light-grey;
+    color: rgb(202, 202, 202);
 }
 

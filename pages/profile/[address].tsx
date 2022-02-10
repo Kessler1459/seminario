@@ -46,10 +46,10 @@ const Profile = () => {
 	
 	return (
 		<>
-			<h2>{user?.address}</h2>
+			<h1>{user?.address}</h1>
 			<h3>{user?.firstName + " " + user?.lastName}</h3>
 			{user?.degrees.length == 0 ? (
-				<div>NO</div>
+				<div>No tokens found</div>
 			) : (
 				<>
 					<div>
