@@ -1,0 +1,15 @@
+@import "/styles/colors.scss";
+
+.card{
+    background-color: $color-dark-blue;
+    border: 1px solid $color-light-blue;
+    border-radius: 0.4em;
+    margin: 0 2.5% 0 2.5%;
+    width: 70%;
+    text-align-last: center;
+    color: black;
+    cursor: pointer;
+    &:hover{
+        background-color: $color-light-blue;
+    }
+}

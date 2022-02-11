@@ -7,6 +7,7 @@ import User from "../../models/user";
 import Degree from "../../models/degree";
 import Course from "../../models/course";
 import Card from "../../components/degree-card/card";
+import styles from "./profile.module.scss";
 
 const Profile = () => {
 	const router = useRouter();
@@ -39,37 +40,39 @@ const Profile = () => {
 	};
 
 	const getTotalAverage = () => {
-        const sum=user?.degrees.reduce((s, c) => s + c.courses.reduce((sum, val) => sum + val.score, 0) / c.courses.length, 0)
-        if(sum && user?.degrees)
-            return (sum/user?.degrees.length).toFixed(2);
+		const sum = user?.degrees.reduce((s, c) => s + c.courses.reduce((sum, val) => sum + val.score, 0) / c.courses.length, 0);
+		if (sum && user?.degrees) return (sum / user?.degrees.length).toFixed(2);
 	};
-	
+
 	return (
 		<>
 			<h1>{user?.address}</h1>
-			<h3>{user?.firstName + " " + user?.lastName}</h3>
+			<h2>{user?.firstName + " " + user?.lastName}</h2>
 			{user?.degrees.length == 0 ? (
 				<div>No tokens found</div>
 			) : (
 				<>
-					<div>
-						<i>Latest token</i>
-						<p>
-							#{latestCourse?.tokenId.toString()} Earned {latestCourse?.name} on{" "}
-							{latestCourse?.date.toLocaleDateString()}
-						</p>
-					</div>
-					<ul>
-						<li>Tokens: {user?.degrees.reduce<number>((acum, cur) => acum + cur.courses.length, 0)}</li>
-						<li>
+					<section className={styles.cardContainer + " " + styles.stats}>
+						<div>Tokens: {user?.degrees.reduce<number>((acum, cur) => acum + cur.courses.length, 0)}</div>
+						<div>
 							Total score:{" "}
 							{user?.degrees.reduce<number>((sum, cur) => sum + cur.courses.reduce((s, c) => s + c.score, 0), 0)}
-						</li>
-                        <li>Average: {getTotalAverage()}</li>
-					</ul>
-					{user?.degrees.map((deg, i) => (
-						<Card key={i} degree={deg} />
-					))}
+						</div>
+						<div>Average: {getTotalAverage()}</div>
+					</section>
+					<section>
+						<h3 className={styles.title}>Latest token</h3>
+						<i>
+							#{latestCourse?.tokenId.toString()} Earned {latestCourse?.name} on{" "}
+							{latestCourse?.date.toLocaleDateString()}
+						</i>
+					</section>
+					<h3>Degrees</h3>
+					<section className={styles.cardContainer}>
+						{user?.degrees.map((deg, i) => (
+							<Card key={i} degree={deg} />
+						))}
+					</section>
 				</>
 			)}
 		</>

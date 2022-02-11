@@ -1,3 +1,5 @@
+@import "/styles/colors.scss";
+
 .modaloverlay {
 	position: fixed;
 	top: 0;
@@ -26,12 +28,16 @@
 	position: relative;
 	margin: 1.75rem auto;
 	border-radius: 1em;
-	padding: 3rem;
+	padding: 2.6rem;
     padding-top: 0.55rem;
 	box-shadow: 10px 10px #00000038;
-	background-color: rgb(255, 255, 255);
+	background-color: $grey;
 	border: #5fbdeb solid 2px;
 	width: fit-content;
+    h2{
+        color: white;
+        text-align-last: center;
+    }
 }
 
 .modalBody {
@@ -52,7 +58,7 @@
 	font-size: 1.4rem;
 	font-weight: 700;
 	line-height: 1;
-	color: #829fd9;
+	color: $color-dark-blue;
 	opacity: 0.8;
 	cursor: pointer;
 	border: none;

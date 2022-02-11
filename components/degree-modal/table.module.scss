@@ -2,22 +2,25 @@
 
 .paper{
     text-align: center;
-    box-shadow: none;
-    background-color: $grey;
+    box-shadow: none !important;
+    background-color: $grey !important;
     color: white;
     max-height: 70%;
 }
 
 .table{
     text-align-last: center;
+    min-width: 50vw;
 }
 
 .th{
-    background-color: $grey;
-    color: white;
+    background-color: $grey !important;
+    color: white !important;
 }
 
 .cell{
-    color: rgb(202, 202, 202);
+    color: white;
+    background-color: $grey;
+    border-bottom:none
 }
 

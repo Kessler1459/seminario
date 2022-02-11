@@ -1,7 +1,7 @@
+import styles from "./table.module.scss";
 import { Paper, TableContainer,Table, TableBody, TableRow, TableCell, TableHead } from "@mui/material";
 import Degree from "../../models/degree";
 import Modal from "../modal";
-import styles from "./table.module.scss";
 
 const columns = [
 	{ field: "tokenId", headerName: "ID", width: 60 },

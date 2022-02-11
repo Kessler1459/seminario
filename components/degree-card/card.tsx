@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Degree from "../../models/degree";
 import DegreeModal from "../degree-modal/degree-modal";
+import styles from "./card.module.scss";
 
 const Card = ({ degree }: { degree: Degree }) => {
 	const [modalShowing, setShowing] = useState(false);
@@ -11,7 +12,7 @@ const Card = ({ degree }: { degree: Degree }) => {
 
 	return (
 		<>
-			<div onClick={onClick}>
+			<div onClick={onClick} className={styles.card}>
 				<strong>{degree.title}</strong>
 				{degree.courses.length == 1 ? (
 					<p>{degree.courses.length} course completed</p>
