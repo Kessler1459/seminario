@@ -44,13 +44,13 @@ const Table = ({ leaderboard }: { leaderboard: Entry[] }) => {
 	};
 
 	return (
-		<Paper className={styles.paper} sx={{ width: "100%", overflow: "hidden" }}>
+		<Paper  className={styles.paper} sx={{ width: "100%", overflow: "hidden",boxShadow:"none" }}>
 			<input className={styles.searchInput} type="text" value={filter} onChange={onChangeFilter} placeholder='Search'/>
 			<TableContainer className={styles.table} sx={{ maxHeight: 440 }}>
 				<MTable stickyHeader aria-label="sticky table">
 					<TableHead>
 						<TableRow>
-							<TableCell className={styles.th} key={-1}>#</TableCell>
+							<TableCell className={styles.th} sx={{backgroundColor:styles['$grey']}} key={-1}>#</TableCell>
 							{columns.map((column, colKey) => (
 								<TableCell className={styles.th} key={colKey}>
 									<strong>{column.headerName}</strong>
