@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { BigNumberish, Contract } from "ethers";
 import { NFTStorage } from "nft.storage";
-import { useEthersContext } from "../ethers-context";
 import { UniversidadTecnologicaNacional } from "../hardhat/typechain";
 import Degree from "../models/degree";
 import User from "../models/user";
@@ -35,7 +34,7 @@ export const useUsers = (contract: Contract | null) => {
                 "metadata.json"
             ),
         ]);
-        (contract as UniversidadTecnologicaNacional)?.safeMint(address, score, cid).catch(() => client.delete(cid)); //si cancela transaccion o hay revert se borra tambien del ipfs
+        (contract as UniversidadTecnologicaNacional)?.safeMint(address, score, cid).catch((e) => {console.log(e);client.delete(cid)}); //si cancela transaccion o hay revert se borra tambien del ipfs
         setLoading(false);
     }
 
@@ -74,9 +73,9 @@ export const useUsers = (contract: Contract | null) => {
         setLoading(true);
         let rank: Entry[] = [];
         if (contract) {
-            const addresses = await contract?.getAllAddresses();
+            const addresses = await contract.getAllAddresses();
             rank = await Promise.all(addresses.map(async (address: string) => {
-                const entryList = await contract?.getAllTokens(address);
+                const entryList = await contract.getAllTokens(address);
                 let sum = 0;
                 let i = 0;
                 for (i = 0; i < entryList.length; i++) {

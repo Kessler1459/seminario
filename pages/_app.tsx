@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		if (eth) {
 			const ethersProvider = new ethers.providers.Web3Provider(eth);
 			setProvider(ethersProvider);
-			setContract(new ethers.Contract("0x5FbDB2315678afecb367f032d93F642f64180aa3", abiJson.abi, ethersProvider.getSigner()));
+			setContract(new ethers.Contract("0x5FbDB2315678afecb367f032d93F642f64180aa3", abiJson.abi, address?ethersProvider.getSigner():ethersProvider));
 			eth.on("accountsChanged", ([account]: [string]) => setAccount(account));
 			const selected = eth.selectedAddress;
             setAccount(selected)
