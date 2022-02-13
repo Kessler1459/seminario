@@ -15,7 +15,7 @@ const Nav: React.FC<{ address: string; owner: boolean | null; openMetamaskModal:
 			{owner ? <Link href="/mint">Mint token</Link> : null}
 			<Link href={"/profile/" + address}>{address}</Link>
 			{!address ? (
-				<Image className={styles.icon} src={metamaskLogo.src} width={25} height={25} onClick={openMetamaskModal} />
+				<Image className={styles.icon} src={metamaskLogo.src} width={25} height={25} onClick={openMetamaskModal} alt='metamask_logo'/>
 			) : null}
 		</nav>
 	);
